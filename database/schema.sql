@@ -1,0 +1,14 @@
+-- DROP TABLE if EXISTS person;
+-- CREATE TABLE IF NOT EXISTS users(
+--   id SERIAL PRIMARY KEY,
+--   email VARCHAR(50) NOT NULL,
+--   password VARCHAR(16) NOT NULL
+-- );
+
+DROP TABLE if EXISTS todo;
+CREATE TABLE IF NOT EXISTS todo(
+  id SERIAL PRIMARY KEY,
+  item VARCHAR(60) NOT NULL,
+  completed BOOLEAN DEFAULT false,
+  priority  SERIAL
+)
