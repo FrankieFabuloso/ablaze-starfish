@@ -16,7 +16,7 @@ const TodoList = (props) => {
   return (
     <tbody>
       { todos.map((todo) =>
-        <Todo id={todo.id} value={todo.task} />
+        <Todo key={todo.id} id={todo.id} value={todo.task} />
       )}
     </tbody>
   );
