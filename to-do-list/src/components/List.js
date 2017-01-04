@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Todo from './Todo'
 
 // temporary static data
@@ -14,11 +13,10 @@ const tasks = [
 
 const TodoList = (props) => {
   const todos = props.tasks
-
   return (
     <tbody>
       { todos.map((todo) =>
-        <Todo value={todo.task} />
+        <Todo id={todo.id} value={todo.task} />
       )}
     </tbody>
   );

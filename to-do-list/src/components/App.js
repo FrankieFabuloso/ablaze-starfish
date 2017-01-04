@@ -18,6 +18,12 @@ class App extends React.Component {
         </thead>
         <List />
         </table>
+        <div className="input-group col-lg-6">
+          <span className="input-group-btn">
+            <button className="btn btn-secondary" type="button">Go!</button>
+          </span>
+          <input type="text" className="form-control" placeholder="What do you want to do?"></input>
+        </div>
       </div>
     );
   }

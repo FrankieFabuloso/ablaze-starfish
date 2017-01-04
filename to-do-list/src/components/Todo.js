@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 
 class Todo extends React.Component {
   constructor(props) {
@@ -8,7 +7,7 @@ class Todo extends React.Component {
 
   render () {
     return (
-            <tr>
+            <tr id={this.props.id}>
               <td scope="row">
                 <button className='complete-button glyphicon glyphicon-ok'>
                 </button>
