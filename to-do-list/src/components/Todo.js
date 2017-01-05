@@ -5,51 +5,44 @@ class Todo extends React.Component {
   constructor(props) {
     super(props)
     this.state = {isCompleted: false}
+    this.handleCompleteClick = this.handleCompleteClick.bind(this)
   }
 
-handleCompleteClick() {
-  this.setState({isCompleted: true})
-}
+  handleCompleteClick() {
+    this.setState({
+      isCompleted: !this.state.isCompleted
+    })
+  }
 
   render () {
-    const isCompleted = this.state.isCompleted
     const taskText = this.props.value
-    let todo = null
-    if (isCompleted) {
-      todo = <CompletedTask value={taskText} />
-    } else {
-      todo = <UncompletedTask value={taskText}/>
-    }
-    return (
+    const isCompleted = this.state.isCompleted
+    ? <Task className={'completed'} value = {taskText}/> :
+    <Task className={'uncompleted'} value = {taskText} />
 
+    return (
             <tr id={this.props.id}>
-              <Button icon={"glyphicon-ok"}/>
-              {todo}
+            <td>
+            <Button onClick={(e) => this.handleCompleteClick(e)} icon={"glyphicon-ok"}/>
+            </td>
+              {isCompleted}
+            <td>
               <Button icon={"glyphicon-remove"}/>
+            </td>
             </tr>
     )
   }
-
 }
 
-const CompletedTask = (props) => {
+const Task = (props) => {
   return (
     <td>
-      <div className='todo-item completed'>
+      <div className={`todo-item ${props.className}`}>
         {props.value}
       </div>
     </td>
   )
 }
 
-const UncompletedTask = (props) => {
-  return (
-    <td>
-      <div className='todo-item uncompleted'>
-        {props.value}
-      </div>
-    </td>
-  )
-}
 
 export default Todo;
