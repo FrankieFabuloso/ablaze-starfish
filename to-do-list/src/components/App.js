@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import logo from '../images/logo.svg';
+import React from 'react';
+// import logo from '../images/logo.svg';
 import '../stylesheets/App.css';
 import List from './List'
 import Textbox from './Textbox'

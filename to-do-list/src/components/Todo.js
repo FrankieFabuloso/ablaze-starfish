@@ -18,8 +18,8 @@ class Todo extends React.Component {
   render () {
     const taskText = this.props.value
     const isCompleted = this.state.isCompleted
-    ? <Task className={'completed'} value = {taskText}/> :
-    <Task className={'uncompleted'} value = {taskText} />
+    ? <Task className={'completed'} value={taskText}/> :
+    <Task className={'uncompleted'} value={taskText} />
 
     return (
             <tr id={this.props.id}>

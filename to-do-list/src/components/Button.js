@@ -1,10 +1,6 @@
 import React from 'react';
 
 class Button extends React.Component{
-  constructor(props) {
-    super(props)
-  }
-
   render() {
     const iconType = 'complete-button glyphicon ' + this.props.icon
     return(
