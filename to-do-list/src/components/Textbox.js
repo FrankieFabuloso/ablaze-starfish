@@ -1,17 +1,15 @@
 import React from 'react';
 
 class Textbox extends React.Component{
-  constructor(props) {
-    super(props)
-  }
 
   render() {
+    const {handleAddTodo} = this.props
     return (
     <div className="input-group col-lg-6">
       <span className="input-group-btn">
-        <button className="btn btn-secondary" type="button" onClick={()=> console.log("poop")}>Go!</button>
+        <button className="btn btn-secondary" type="button" onClick={(e) => handleAddTodo(e, document.getElementById('newTask').value)}>Go!</button>
       </span>
-      <input type="text" className="form-control" placeholder="What do you want to do?"></input>
+      <input id="newTask" type="text" className="form-control" placeholder="What do you want to do?"></input>
     </div>
     )
   }
