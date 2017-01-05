@@ -14,6 +14,7 @@ class Todo extends React.Component {
     })
   }
 
+
   render () {
     const taskText = this.props.value
     const isCompleted = this.state.isCompleted
@@ -27,7 +28,7 @@ class Todo extends React.Component {
             </td>
               {isCompleted}
             <td>
-              <Button icon={"glyphicon-remove"}/>
+              <Button onClick={this.props.onClick} icon={"glyphicon-remove"}/>
             </td>
             </tr>
     )

@@ -1,9 +1,6 @@
 import React from 'react';
-import Todo from './Todo'
+
 class Button extends React.Component{
-  // static propTypes = {
-  //   onClick: React.propTypes.func
-  // }
   constructor(props) {
     super(props)
   }
