@@ -19,6 +19,7 @@ class App extends React.Component {
 
     this.handleDeleteClick = this.handleDeleteClick.bind(this)
     this.handleAddTodo = this.handleAddTodo.bind(this)
+    this.onTaskChange = this.onTaskChange.bind(this)
   }
 
   handleDeleteClick(e, todo) {
@@ -39,6 +40,18 @@ class App extends React.Component {
     })
   }
 
+  onTaskChange(e, todo) {
+    const newState = this.state.Tasks
+    const todoIndex = this.state.Tasks.indexOf(todo)
+    newState[todoIndex]['task'] = e.target.value
+    this.setState({Tasks: newState})
+  }
+
+  handleEditTodo(e, todo) {
+    const newState = this.state.Tasks
+
+  }
+
   render() {
     return (
       <div className='App'>
@@ -50,7 +63,7 @@ class App extends React.Component {
               <td></td>
             </tr>
           </thead>
-          <List handleDeleteClick={this.handleDeleteClick} todos={this.state.Tasks}/>
+          <List onTaskChange={this.onTaskChange} handleDeleteClick={this.handleDeleteClick} todos={this.state.Tasks}/>
         </table>
         <Textbox handleAddTodo={this.handleAddTodo} />
       </div>

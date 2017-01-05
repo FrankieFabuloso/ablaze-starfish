@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.get('/', function (req, res) {
   Todos.getAll()
     .then((results) =>
-      res.json({results})
+      res.json({results ``})
     )
 })
 
@@ -34,5 +34,5 @@ app.put('/:id', function( req, res ) {
 })
 
 app.listen(5000, function () {
-  console.log('Example app listening on port 3000!')
+  console.log('Example app listening on port 5000!')
 })
