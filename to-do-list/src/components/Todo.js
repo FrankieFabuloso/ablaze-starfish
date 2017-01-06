@@ -49,7 +49,7 @@ const Task = (props) => {
     </input>
     <Button onClick={props.handleEditable} icon={"glyphicon-floppy-disk"}/>
   </span>:
-  <div onClick= {props.handleEditable} className={`todo-item ${props.className}`}  onChange={props.onTaskChange}>
+  <div onClick={props.handleEditable} className={`todo-item ${props.className}`}  onChange={props.onTaskChange}>
     {props.value}
   </div>
   return (
