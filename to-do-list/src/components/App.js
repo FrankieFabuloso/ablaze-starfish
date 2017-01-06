@@ -8,18 +8,26 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      Tasks : [
-        {id:1, task: "Dance a lot"},
-        {id:2, task: "Run a mile"},
-        {id:3, task: "Drink some soda"},
-        {id:4, task: "Task #4"},
-        {id:5, task: "Computers"}
-      ]
+      Tasks : []
     }
 
     this.handleDeleteClick = this.handleDeleteClick.bind(this)
     this.handleAddTodo = this.handleAddTodo.bind(this)
     this.onTaskChange = this.onTaskChange.bind(this)
+  }
+
+  getInitialTodos() {
+    fetch('http://localhost:5000',{
+      method: 'get',
+    }).then(response => {
+      return response.json()
+    })
+    .then(results => {
+      const initialTodos = results['results']
+      this.setState({
+        Tasks: initialTodos
+      })
+    })
   }
 
   handleDeleteClick(e, todo) {
@@ -53,6 +61,7 @@ class App extends React.Component {
   }
 
   render() {
+    this.getInitialTodos()
     return (
       <div className='App'>
         <table className='table'>
