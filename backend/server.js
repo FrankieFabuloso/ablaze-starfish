@@ -1,4 +1,5 @@
 const express = require('express')
+const cors = require('cors')
 const app = express()
 const pgp = require('pg-promise')()
 const {Todos} = require('./db')
@@ -6,11 +7,7 @@ const bodyParser = require('body-parser')
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
+app.use(cors());
 
 app.get('/', function (req, res) {
   Todos.getAll()
@@ -27,7 +24,9 @@ app.delete('/:id', function (req, res) {
 
 app.post('/', function( req, res ) {
   const {task} = req.body
-  Todos.createTodo(value)
+  console.log(req.body);
+  console.log(task);
+  Todos.createTodo(task)
     .then(() => res.json({1: 'posted'}))
 })
 

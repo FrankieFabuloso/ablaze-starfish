@@ -10,13 +10,13 @@ class App extends React.Component {
     this.state = {
       Tasks : []
     }
-
+    this.getAllTodos()
     this.handleDeleteClick = this.handleDeleteClick.bind(this)
     this.handleAddTodo = this.handleAddTodo.bind(this)
     this.onTaskChange = this.onTaskChange.bind(this)
   }
 
-  getInitialTodos() {
+  getAllTodos() {
     fetch('http://localhost:5000',{
       method: 'get',
     }).then(response => {
@@ -30,22 +30,25 @@ class App extends React.Component {
     })
   }
 
-  handleDeleteClick(e, todo) {
-    const newState = this.state.Tasks
-    const todoIndex = newState.indexOf(todo)
-    newState.splice(todoIndex,1)
-    this.setState({
-      Tasks: newState
+  handleDeleteClick(e, todoId) {
+    console.log(todoId);
+    fetch(`http://localhost:5000/${todoId}`,{
+      method: 'delete',
     })
+    .then(() => this.getAllTodos())
   }
 
   handleAddTodo(e, todo) {
-    let newTodo = {id:this.state.Tasks.length+1, task: todo}
-    const newState = this.state.Tasks
-    newState.push(newTodo)
-    this.setState({
-      Tasks: newState
+    const taskObj = {'task' : todo}
+    fetch('http://localhost:5000',{
+      method: 'post',
+      body: JSON.stringify(taskObj),
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      })
     })
+    .then(() => this.getAllTodos())
   }
 
   onTaskChange(e, todo) {
@@ -55,13 +58,9 @@ class App extends React.Component {
     this.setState({Tasks: newState})
   }
 
-  handleEditTodo(e, todo) {
-    const newState = this.state.Tasks
-
-  }
 
   render() {
-    this.getInitialTodos()
+
     return (
       <div className='App'>
         <table className='table'>

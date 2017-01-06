@@ -7,7 +7,7 @@ class List extends React.Component{
     return(
       <tbody>
         { todos.map((todo) =>
-          <Todo key={todo.id} id={todo.id} value={todo.task} onTaskChange={ (e) => onTaskChange(e, todo)} onClick={ (e) => handleDeleteClick(e, todo) } />
+          <Todo key={todo.id} id={todo.id} value={todo.task} onTaskChange={ (e) => onTaskChange(e, todo)} onClick={ (e) => handleDeleteClick(e, todo.id) } />
         )}
       </tbody>
     )
