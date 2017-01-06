@@ -3,11 +3,20 @@ import Todo from './Todo'
 
 class List extends React.Component{
   render() {
-    const {todos, handleDeleteClick, onTaskChange} = this.props
+    const {todos, handleDeleteClick, onTaskChange, handleCompleteClick} = this.props
+    console.log(handleCompleteClick);
     return(
       <tbody>
         { todos.map((todo) =>
-          <Todo key={todo.id} id={todo.id} value={todo.task} onTaskChange={ (e) => onTaskChange(e, todo)} onClick={ (e) => handleDeleteClick(e, todo.id) } />
+          <Todo
+          key={todo.id}
+          id={todo.id}
+          value={todo.task}
+          todo={todo}
+          onTaskChange={ (e) => onTaskChange(e, todo) }
+          onDelete={ (e) => handleDeleteClick(e, todo.id) }
+          onCompleteToggle={ (e) => handleCompleteClick(e, todo.id) }
+          />
         )}
       </tbody>
     )

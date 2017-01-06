@@ -11,6 +11,7 @@ class App extends React.Component {
       Tasks : []
     }
     this.getAllTodos()
+    this.handleCompleteClick = this.handleCompleteClick.bind(this)
     this.handleDeleteClick = this.handleDeleteClick.bind(this)
     this.handleAddTodo = this.handleAddTodo.bind(this)
     this.onTaskChange = this.onTaskChange.bind(this)
@@ -23,15 +24,22 @@ class App extends React.Component {
       return response.json()
     })
     .then(results => {
-      const initialTodos = results['results']
+      const initialTodos = results.results
       this.setState({
         Tasks: initialTodos
       })
     })
   }
 
+  handleCompleteClick(e, todoId) {
+    console.log(todoId)
+    fetch(`http://localhost:5000/complete/${todoId}`,{
+      method: 'put'
+    })
+    .then(() => this.getAllTodos())
+  }
+
   handleDeleteClick(e, todoId) {
-    console.log(todoId);
     fetch(`http://localhost:5000/${todoId}`,{
       method: 'delete',
     })
@@ -60,20 +68,26 @@ class App extends React.Component {
 
 
   render() {
-
+    console.log(this.state.Tasks);
     return (
       <div className='App'>
-        <table className='table'>
-          <thead>
-            <tr>
-              <td></td>
-              <td className='header'>Tasks</td>
-              <td></td>
-            </tr>
-          </thead>
-          <List onTaskChange={this.onTaskChange} handleDeleteClick={this.handleDeleteClick} todos={this.state.Tasks}/>
-        </table>
-        <Textbox handleAddTodo={this.handleAddTodo} />
+        <div className='tasksContainer'>
+          <table className='table'>
+            <thead>
+              <tr>
+                <td></td>
+                <td className='header'>Tasks</td>
+                <td></td>
+              </tr>
+            </thead>
+            <List
+            onTaskChange={this.onTaskChange}
+            handleDeleteClick={this.handleDeleteClick}
+            handleCompleteClick={this.handleCompleteClick}
+            todos={this.state.Tasks}/>
+          </table>
+          <Textbox handleAddTodo={this.handleAddTodo} />
+        </div>
       </div>
     );
   }

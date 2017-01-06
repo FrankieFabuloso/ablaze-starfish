@@ -37,6 +37,13 @@ app.put('/:id', function( req, res ) {
     .then(() => res.json({1: 'updated'}))
 })
 
+app.put('/complete/:id', function( req, res ) {
+  const id = req.params.id
+    console.log(id);
+  Todos.toggleComplete(id)
+    .then( () => res.json({1: 'completed_set'}))
+})
+
 app.listen(5000, function () {
   console.log('Example app listening on port 5000!')
 })
