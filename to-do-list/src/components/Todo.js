@@ -4,8 +4,7 @@ import Button from './Button'
 class Todo extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {isCompleted: false, isEditable: false}
-    this.handleCompleteClick = this.handleCompleteClick.bind(this)
+    this.state = {isEditable: false}
     this.handleEditable = this.handleEditable.bind(this)
   }
 
@@ -15,27 +14,32 @@ class Todo extends React.Component {
     })
   }
 
-  handleCompleteClick() {
-    this.setState({
-      isCompleted: !this.state.isCompleted
-    })
-  }
-
   render () {
-    const taskText = this.props.value
+    const {id, completed, task} = this.props.todo
     const isEditable = this.state.isEditable
-    const isCompleted = this.state.isCompleted
-    ? <Task className={'completed'} value={taskText} handleEditable={(e) => this.handleEditable(e)} isEditable={isEditable} onTaskChange={this.props.onTaskChange}/> :
-    <Task className={'uncompleted'} value={taskText} handleEditable={(e) => this.handleEditable(e)} isEditable={isEditable} taskId={this.props.id} onTaskChange={this.props.onTaskChange}/>
+    const taskIsStriked = completed?
+    <Task
+    className={'completed'}
+    value={task}
+    handleEditable={(e) => this.handleEditable(e)}
+    isEditable={isEditable}
+    onTaskChange={this.props.onTaskChange} />
+    :
+    <Task
+    className={'uncompleted'}
+    value={task}
+    handleEditable={(e) => this.handleEditable(e)}
+    isEditable={isEditable} taskId={id}
+    onTaskChange={this.props.onTaskChange} />
 
     return (
             <tr id={this.props.id}>
             <td>
-            <Button onClick={(e) => this.handleCompleteClick(e)} icon={"glyphicon-ok"}/>
+            <Button onClick={this.props.onCompleteToggle} icon={"glyphicon-ok"}/>
             </td>
-              {isCompleted}
+              {taskIsStriked}
             <td>
-              <Button onClick={this.props.onClick} icon={"glyphicon-remove"}/>
+              <Button onClick={this.props.onDelete} icon={"glyphicon-remove"}/>
             </td>
             </tr>
     )
@@ -45,11 +49,17 @@ class Todo extends React.Component {
 const Task = (props) => {
   const isEditableView = props.isEditable?
   <span>
-    <input className={`todo-item ${props.className}`} value={props.value} onChange={props.onTaskChange}>
+    <input
+    className={`todo-item ${props.className}`}
+    value={props.value}
+    onChange={props.onTaskChange}>
     </input>
     <Button onClick={props.handleEditable} icon={"glyphicon-floppy-disk"}/>
   </span>:
-  <div onClick={props.handleEditable} className={`todo-item ${props.className}`}  onChange={props.onTaskChange}>
+  <div
+  onClick={props.handleEditable}
+  className={`todo-item ${props.className}`}
+  onChange={props.onTaskChange}>
     {props.value}
   </div>
   return (
