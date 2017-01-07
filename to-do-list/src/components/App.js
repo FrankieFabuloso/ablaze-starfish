@@ -16,7 +16,7 @@ class App extends React.Component {
     this.handleAddTodo = this.handleAddTodo.bind(this)
     this.onTaskChange = this.onTaskChange.bind(this)
   }
-
+  // initial fetch to retrive stored Todos from DB.
   getAllTodos() {
     fetch('http://localhost:5000',{
       method: 'get',
@@ -31,6 +31,7 @@ class App extends React.Component {
     })
   }
 
+  // - - - API comunication methods - - -
   handleCompleteClick(e, todoId) {
     console.log(todoId)
     fetch(`http://localhost:5000/complete/${todoId}`,{
@@ -46,8 +47,8 @@ class App extends React.Component {
     .then(() => this.getAllTodos())
   }
 
-  handleAddTodo(e, todo) {
-    const taskObj = {'task' : todo}
+  handleAddTodo(e, task) {
+    const taskObj = {'task' : task}
     fetch('http://localhost:5000',{
       method: 'post',
       body: JSON.stringify(taskObj),
@@ -60,10 +61,18 @@ class App extends React.Component {
   }
 
   onTaskChange(e, todo) {
-    const newState = this.state.Tasks
-    const todoIndex = this.state.Tasks.indexOf(todo)
-    newState[todoIndex]['task'] = e.target.value
-    this.setState({Tasks: newState})
+    console.log(todo);
+    const {id, task} = todo
+    const taskObj = {'task': task}
+    fetch(`http://localhost:5000/${id}`, {
+      method: 'put',
+      body: JSON.stringify(taskObj),
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      })
+    })
+    .then(() => this.getAllTodos())
   }
 
 
