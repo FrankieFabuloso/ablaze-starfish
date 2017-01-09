@@ -15,6 +15,8 @@ class App extends React.Component {
     this.handleDeleteClick = this.handleDeleteClick.bind(this)
     this.handleAddTodo = this.handleAddTodo.bind(this)
     this.onTaskChange = this.onTaskChange.bind(this)
+    this.movePriorityUp = this.movePriorityUp.bind(this)
+    this.movePriorityDown = this.movePriorityDown.bind(this)
   }
   // initial fetch to retrive stored Todos from DB.
   getAllTodos() {
@@ -60,6 +62,51 @@ class App extends React.Component {
     .then(() => this.getAllTodos())
   }
 
+
+  movePriorityUp(e, todo) {
+    const todoIndex = this.state.Tasks.indexOf(todo)
+    const swapper =  this.state.Tasks[todoIndex-1]
+    const lowTodoParams = [swapper.id, todo.priority]
+    const highTodoParams = [todo.id, swapper.priority]
+
+    const bodyObj = {
+      'lowTodoParams' : lowTodoParams,
+      'highTodoParams' : highTodoParams
+    }
+    console.log(lowTodoParams, highTodoParams);
+    fetch('http://localhost:5000/priority', {
+      method: 'put',
+      body: JSON.stringify(bodyObj),
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      })
+    })
+    .then( () => this.getAllTodos() )
+  }
+
+  movePriorityDown(e, todo) {
+    const todoIndex = this.state.Tasks.indexOf(todo)
+    const swapper =  this.state.Tasks[todoIndex+1]
+    const highTodoParams = [swapper.id, todo.priority]
+    const lowTodoParams = [todo.id, swapper.priority]
+
+    const bodyObj = {
+      'lowTodoParams' : lowTodoParams,
+      'highTodoParams' : highTodoParams
+    }
+    console.log(lowTodoParams, highTodoParams);
+    fetch('http://localhost:5000/priority', {
+      method: 'put',
+      body: JSON.stringify(bodyObj),
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      })
+    })
+    .then( () => this.getAllTodos() )
+  }
+
   onTaskChange(e, todo) {
     console.log(todo);
     const {id, task} = todo
@@ -93,6 +140,8 @@ class App extends React.Component {
             onTaskChange={this.onTaskChange}
             handleDeleteClick={this.handleDeleteClick}
             handleCompleteClick={this.handleCompleteClick}
+            movePriorityUp={this.movePriorityUp}
+            movePriorityDown={this.movePriorityDown}
             todos={this.state.Tasks}/>
           </table>
           <Textbox handleAddTodo={this.handleAddTodo} />

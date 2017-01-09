@@ -30,12 +30,14 @@ app.post('/', function( req, res ) {
     .then(() => res.json({1: 'posted'}))
 })
 
-app.put('/:id', function( req, res ) {
-  const id = req.params.id
-  const {task} = req.body
-  Todos.updateTodo(id, task)
-    .then(() => res.json({1: 'updated'}))
+app.put('/priority', function( req, res ) {
+  const {highTodoParams, lowTodoParams} = req.body
+  console.log(highTodoParams, lowTodoParams)
+  console.log('Swapping ', lowTodoParams, ' with ', highTodoParams);
+  Todos.swapPriorities( lowTodoParams, highTodoParams )
+  .then( () => res.json( {1: 'complete_swap'}))
 })
+
 
 app.put('/complete/:id', function( req, res ) {
   const id = req.params.id
@@ -44,6 +46,13 @@ app.put('/complete/:id', function( req, res ) {
     .then( () => res.json({1: 'completed_set'}))
 })
 
+app.put('/:id', function( req, res ) {
+  const id = req.params.id
+  const {task} = req.body
+  Todos.updateTodo(id, task)
+  .then(() => res.json({1: 'updated'}))
+})
+
 app.listen(5000, function () {
-  console.log('Example app listening on port 5000!')
+  console.log('Database API for todos is listening on port 5000!')
 })
