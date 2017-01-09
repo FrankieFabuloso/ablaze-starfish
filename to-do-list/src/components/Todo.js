@@ -3,18 +3,6 @@ import Button from './Button'
 import Task from './Task'
 
 class Todo extends React.Component {
-  //
-  // movePriorityUp(e, todo, todoArray) {
-  //   console.log('Move todo: ', todo, 'to index', todo - 1);
-  //   console.log('Switch: ', todoArray[todo], ' with :', todoArray[todo-1]);
-  //
-  // }
-  //
-  // movePriorityDown(e, todo, todoArray) {
-  //   console.log('Move todo: ', todo, 'to index', todo + 1);
-  //   console.log('Switch: ', todoArray[todo], ' with :', todoArray[todo + 1]);
-  //
-  // }
 
   render () {
     const {todo, tasks, onTaskChange, onCompleteToggle, onDelete, movePriorityDown, movePriorityUp } = this.props

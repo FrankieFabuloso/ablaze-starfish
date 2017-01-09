@@ -35,7 +35,6 @@ class App extends React.Component {
 
   // - - - API comunication methods - - -
   handleCompleteClick(e, todoId) {
-    console.log(todoId)
     fetch(`http://localhost:5000/complete/${todoId}`,{
       method: 'put'
     })
@@ -73,7 +72,6 @@ class App extends React.Component {
       'lowTodoParams' : lowTodoParams,
       'highTodoParams' : highTodoParams
     }
-    console.log(lowTodoParams, highTodoParams);
     fetch('http://localhost:5000/priority', {
       method: 'put',
       body: JSON.stringify(bodyObj),
@@ -95,7 +93,6 @@ class App extends React.Component {
       'lowTodoParams' : lowTodoParams,
       'highTodoParams' : highTodoParams
     }
-    console.log(lowTodoParams, highTodoParams);
     fetch('http://localhost:5000/priority', {
       method: 'put',
       body: JSON.stringify(bodyObj),
@@ -108,7 +105,6 @@ class App extends React.Component {
   }
 
   onTaskChange(e, todo) {
-    console.log(todo);
     const {id, task} = todo
     const taskObj = {'task': task}
     fetch(`http://localhost:5000/${id}`, {
@@ -124,7 +120,6 @@ class App extends React.Component {
 
 
   render() {
-    console.log(this.state.Tasks);
     return (
       <div className='App'>
         <div className='tasksContainer'>

@@ -20,7 +20,6 @@ class Task extends React.Component {
   }
 
   editTask(e) {
-    console.log(this.props.todo);
     const newState = this.props.tasks
     const todoIndex = this.props.tasks.indexOf(this.props.todo)
     newState[todoIndex]['task'] = e.target.value

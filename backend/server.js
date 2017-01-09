@@ -24,16 +24,12 @@ app.delete('/:id', function (req, res) {
 
 app.post('/', function( req, res ) {
   const {task} = req.body
-  console.log(req.body);
-  console.log(task);
   Todos.createTodo(task)
     .then(() => res.json({1: 'posted'}))
 })
 
 app.put('/priority', function( req, res ) {
   const {highTodoParams, lowTodoParams} = req.body
-  console.log(highTodoParams, lowTodoParams)
-  console.log('Swapping ', lowTodoParams, ' with ', highTodoParams);
   Todos.swapPriorities( lowTodoParams, highTodoParams )
   .then( () => res.json( {1: 'complete_swap'}))
 })
@@ -41,7 +37,6 @@ app.put('/priority', function( req, res ) {
 
 app.put('/complete/:id', function( req, res ) {
   const id = req.params.id
-    console.log(id);
   Todos.toggleComplete(id)
     .then( () => res.json({1: 'completed_set'}))
 })
