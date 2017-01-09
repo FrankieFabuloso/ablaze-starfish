@@ -8,11 +8,11 @@ class Task extends React.Component {
       isEditable: false,
       task: ''
     }
-    this.handleEditable = this.handleEditable.bind(this)
+    this.handleEditSave = this.handleEditSave.bind(this)
     this.editTask = this.editTask.bind(this)
   }
 
-  handleEditable(e) {
+  handleEditSave(e) {
     this.setState({
       isEditable: !this.state.isEditable
     })
@@ -32,21 +32,24 @@ class Task extends React.Component {
   render() {
     const {task} = this.props.todo
     const isEditableView = this.state.isEditable?
-    <span>
-    <input
-      className={`todo-item ${this.props.className}`}
-      value={task}
-      onChange={(e) => this.editTask(e)}>
-    </input>
-    <Button onClick={(e) => this.handleEditable(e)} icon={"glyphicon-floppy-disk"}/>
-    </span>
+      <span>
+        <input
+          className={`todo-item ${this.props.className}`}
+          value={task}
+          onChange={(e) => this.editTask(e)}>
+        </input>
+        <Button
+        onClick={(e) => this.handleEditSave(e)}
+        icon={"glyphicon-floppy-disk"}
+        />
+      </span>
     :
-    <div
-      onClick={(e) => this.handleEditable(e)}
-      className={`todo-item ${this.props.className}`}
-      >
-      {task}
-    </div>
+      <div
+        onClick={(e) => this.handleEditSave(e)}
+        className={`todo-item ${this.props.className}`}
+        >
+        {task}
+      </div>
 
     return (
       <td>

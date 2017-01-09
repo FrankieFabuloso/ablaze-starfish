@@ -3,8 +3,21 @@ import Button from './Button'
 import Task from './Task'
 
 class Todo extends React.Component {
+  //
+  // movePriorityUp(e, todo, todoArray) {
+  //   console.log('Move todo: ', todo, 'to index', todo - 1);
+  //   console.log('Switch: ', todoArray[todo], ' with :', todoArray[todo-1]);
+  //
+  // }
+  //
+  // movePriorityDown(e, todo, todoArray) {
+  //   console.log('Move todo: ', todo, 'to index', todo + 1);
+  //   console.log('Switch: ', todoArray[todo], ' with :', todoArray[todo + 1]);
+  //
+  // }
+
   render () {
-    const {todo, tasks, onTaskChange, onCompleteToggle, onDelete} = this.props
+    const {todo, tasks, onTaskChange, onCompleteToggle, onDelete, movePriorityDown, movePriorityUp } = this.props
     const {id, completed} = todo
     const taskIsStriked = completed?
     <Task
@@ -21,14 +34,36 @@ class Todo extends React.Component {
       onTaskChange={onTaskChange}
     />
 
+    let reorderButtons = null
+
+    if( todo.id === tasks[0].id ){
+      reorderButtons =
+        <td>
+        <Button icon={"glyphicon-arrow-down"} onClick={(e) => movePriorityDown(e, todo.id-1, tasks)}/>
+        </td>
+    } else if ( todo.id === tasks[tasks.length-1].id ) {
+      reorderButtons =
+      <td>
+      <Button icon={"glyphicon-arrow-up"} onClick={ (e) => movePriorityUp(e, todo.id-1, tasks) }/>
+      </td>
+    } else {
+      reorderButtons =
+      <td>
+      <Button icon={"glyphicon-arrow-up"} onClick={(e) => movePriorityUp(e, todo.id-1, tasks) }/>
+      <br/>
+      <Button icon={"glyphicon-arrow-down"} onClick={(e) => movePriorityDown(e, todo.id-1, tasks) }/>
+      </td>
+    }
+
     return (
-            <tr id={id}>
+            <tr id={id} className='table-row'>
             <td>
-            <Button onClick={onCompleteToggle} icon={"glyphicon-ok"}/>
+            <Button icon={"glyphicon-ok"} onClick={onCompleteToggle}/>
             </td>
               {taskIsStriked}
+            {reorderButtons}
             <td>
-              <Button onClick={onDelete} icon={"glyphicon-remove"}/>
+              <Button icon={"glyphicon-remove"} onClick={onDelete}/>
             </td>
             </tr>
     )
