@@ -19,7 +19,7 @@ The App: As a user...
 - [X] I can create to do list items.
 - [X] I can delete unwanted to do list items.
 - [X] I can check items off as completed.
-- [ ] I can rearrange to do list items.
+- [X] I can rearrange to do list items.
 - [X] I can edit the text on existing to do's in place.
 
 #### Additional Specs:
