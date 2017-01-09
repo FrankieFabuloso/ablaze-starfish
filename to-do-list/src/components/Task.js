@@ -34,6 +34,7 @@ class Task extends React.Component {
       <span>
         <input
           className={`todo-item ${this.props.className}`}
+          type="text"
           value={task}
           onChange={(e) => this.editTask(e)}>
         </input>

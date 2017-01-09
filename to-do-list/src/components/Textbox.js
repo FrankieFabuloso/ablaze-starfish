@@ -14,7 +14,7 @@ class Textbox extends React.Component{
           className="btn btn-secondary"
           type="button"
           onClick={(e) => this.submitAndClear(e, document.getElementById('newTask').value)}>
-          <span className='add-icon'>+</span>
+          <span className="glyphicon glyphicon-plus"></span>
           </button>
         </span>
         <input id="newTask" type="text" className="form-control" placeholder="What do you want to do?"></input>
